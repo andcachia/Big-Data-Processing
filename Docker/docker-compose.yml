@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+    neo4j-custom:
+        image: neo4j-custom
+        networks: 
+            - ics5114-jaac
+        ports:
+          - "7474:7474"
+          - "7687:7687"
+        volumes:
+          - ${PWD}/neo4j/data:/data
+          - ${PWD}/neo4j/logs:/logs
+          - ${PWD}/Data:/var/lib/neo4j/import
+        environment:
+          - NEO4J_AUTH=neo4j/test
+          - NEO4J_dbms_security_procedures_unrestricted=algo.*
+          - NEO4J_dbms_memory_pagecache_size=512M
+          - NEO4J_dbms_memory_heap_max__size=512M
+          - NEO4J_dbms_memory_heap_initial__size=512M
+          - NEO4J_dbms_tx__log_rotation_retention__policy=false
+
+    spark-custom:
+        image: spark-custom
+        networks: 
+            - ics5114-jaac
+        ports:
+          - "8888:8888"
+        volumes:
+          - ${PWD}/Scripts:/opt/notebooks
+          - ${PWD}/Data:/home/data
+        stdin_open: true
+        tty: true
+        command: "jupyter notebook --notebook-dir=/opt/notebooks --ip='0.0.0.0' --port=8888 --no-browser --allow-root"
+
+networks:
+  ics5114-jaac:
