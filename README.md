@@ -1,0 +1,3 @@
+# SciPi: A Recommender System for Scientific Publications
+
+This study uses the MAG (Microsoft Academic Graph) dataset to build a recommender system. The system is built using Spark and Neo4j, and runs on Azure using HDinsight and IaaS services. The proposed solution uses the dataset to build a knowledge graph, SciPi, using key academic entities to store their information and more importantly the inter-relationships. The recommender system uses the SciPi graph to extract two types of recommendations, including recommending similar papers based on similarity, and also recommending potential collaborations based on strong collaborations clusters.
